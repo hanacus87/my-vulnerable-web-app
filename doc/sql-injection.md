@@ -49,18 +49,18 @@ function login(string $username, string $password): bool
    - **ユーザ名**: `zzz' UNION SELECT 'ログインしたいユーザID', '生成したハッシュ' #`
    - **パスワード**: `mypass`
 
-組み立てられる SQL:
+   組み立てられる SQL:
 
-```sql
-SELECT id, password_hash FROM users
-WHERE username = 'zzz'                              -- 実ユーザに当たらず0件
-UNION SELECT 1, '$2y$12$iYN...(mypass のハッシュ)'  -- この捏造行が返る
-#'
-```
+   ```sql
+   SELECT id, password_hash FROM users
+   WHERE username = 'zzz'                              -- 実ユーザに当たらず0件
+   UNION SELECT 1, '$2y$12$iYN...(mypass のハッシュ)'  -- この捏造行が返る
+   #'
+   ```
 
 3. ログインボタン押下
 
-指定したユーザIDのユーザにログイン可能
+   指定したユーザIDのユーザにログイン可能
 
 ## 3. 原因と修正
 
