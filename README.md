@@ -19,3 +19,4 @@
 ## INDEX
 
 - [SQL Injection](doc/sql-injection.md)
+- [IDOR](doc/idor.md)

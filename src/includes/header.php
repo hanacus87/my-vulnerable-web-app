@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-$title = $title ?? 'My App';
-$user = $user ?? null;
+$title = $title ?? 'vNet';
+$user = $me ?? null;
+$current = basename($_SERVER['SCRIPT_NAME'] ?? '');
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -28,4 +29,16 @@ $user = $user ?? null;
       </nav>
     <?php endif; ?>
   </header>
-  <main class="container">
+  <?php if ($user !== null): ?>
+    <div class="app">
+      <aside class="sidebar">
+        <nav>
+          <a href="mypage.php?user_id=<?= (int) $user['id'] ?>" class="<?= $current === 'mypage.php' ? 'active' : '' ?>">マイページ</a>
+          <!-- <a href="mypage.php" class="<?= $current === 'mypage.php' ? 'active' : '' ?>">マイページ</a> -->
+          <a href="posts.php" class="<?= $current === 'posts.php' ? 'active' : '' ?>">ポスト</a>
+        </nav>
+      </aside>
+      <main class="content">
+      <?php else: ?>
+        <main class="container">
+        <?php endif; ?>

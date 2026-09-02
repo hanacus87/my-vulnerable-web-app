@@ -5,7 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/auth.php';
 
 if (currentUser() !== null) {
-  redirect('mypage.php');
+  redirect('posts.php');
 }
 
 $error = null;
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = (string) filter_input(INPUT_POST, 'password');
 
   if ($username !== '' && $password !== '' && login($username, $password)) {
-    redirect('mypage.php');
+    redirect('posts.php');
   }
 
   $error = 'ユーザー名またはパスワードが違います';
