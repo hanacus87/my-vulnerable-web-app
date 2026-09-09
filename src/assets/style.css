@@ -82,6 +82,16 @@ button:hover {
   padding: 0.5rem 0.75rem;
   border-radius: 4px;
 }
+.success {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+.flash {
+  margin-bottom: 1rem;
+}
 
 dl {
   display: grid;
@@ -213,4 +223,83 @@ button.danger {
 }
 button.danger:hover {
   background: #b91c1c;
+}
+
+.rightrail {
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+  width: 420px;
+}
+@media (max-width: 1280px) {
+  .rightrail {
+    position: static;
+    width: auto;
+    max-width: 600px;
+    margin: 0 auto 1rem;
+  }
+}
+.profile-card h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+}
+.profile-current {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.profile-card input[type="file"] {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+.profile-card button {
+  width: 100%;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+  background: #e5e7eb;
+  color: #4b5563;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.avatar-sm {
+  width: 28px;
+  height: 28px;
+  font-size: 0.8rem;
+}
+.avatar-md {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+}
+.avatar-lg {
+  width: 96px;
+  height: 96px;
+  font-size: 2.2rem;
+}
+.avatar-fallback {
+  text-transform: uppercase;
+}
+
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.page-head h1 {
+  margin: 0;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

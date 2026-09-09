@@ -9,13 +9,27 @@ require_once __DIR__ . '/helpers.php';
 //   'httponly' => true,
 //   'samesite' => 'Lax',
 // ]);
-session_set_cookie_params([
-  'httponly' => false,
-  'samesite' => 'Lax',
-]);
 session_start();
 
 /** 認証 */
+function login(string $username, string $password): bool
+{
+  // SQLi可能(文字列連結)
+  $sql = "SELECT id, password_hash FROM users WHERE username = '{$username}'";
+  $user = db()->query($sql)->fetch();
+
+  if ($user === false || !password_verify($password, $user['password_hash'])) {
+    return false;
+  }
+
+  // セッション固定攻撃対策(セッションID再生成)
+  session_regenerate_id(true);
+
+  $_SESSION['user_id'] = (int) $user['id'];
+  $_SESSION['logged_in_at'] = time();
+
+  return true;
+}
 // function login(string $username, string $password): bool
 // {
 //     // SQLi対策(プレースホルダ)
@@ -35,24 +49,6 @@ session_start();
 
 //     return true;
 // }
-function login(string $username, string $password): bool
-{
-  // SQLi可能(文字列連結)
-  $sql = "SELECT id, password_hash FROM users WHERE username = '{$username}'";
-  $user = db()->query($sql)->fetch();
-
-  if ($user === false || !password_verify($password, $user['password_hash'])) {
-    return false;
-  }
-
-  // セッション固定攻撃対策(セッションID再生成)
-  session_regenerate_id(true);
-
-  $_SESSION['user_id'] = (int) $user['id'];
-  $_SESSION['logged_in_at'] = time();
-
-  return true;
-}
 
 /** セッション破棄 */
 function logout(): void
@@ -90,7 +86,7 @@ function currentUser(): ?array
     return $cached = null;
   }
 
-  $stmt = db()->prepare('SELECT id, username, created_at FROM users WHERE id = ?');
+  $stmt = db()->prepare('SELECT id, username, avatar, created_at FROM users WHERE id = ?');
   $stmt->execute([$_SESSION['user_id']]);
   $user = $stmt->fetch();
 

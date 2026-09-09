@@ -1,3 +1,5 @@
 .env
 .vscode
 .prettierrc
+/src/uploads/avatars/*
+!/src/uploads/avatars/.gitkeep

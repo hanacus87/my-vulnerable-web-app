@@ -20,14 +20,42 @@ $stmt = db()->prepare(
 $stmt->execute([$targetId]);
 $posts = $stmt->fetchAll();
 
-$ownerStmt = db()->prepare('SELECT username FROM users WHERE id = ?');
+$ownerStmt = db()->prepare('SELECT username, avatar FROM users WHERE id = ?');
 $ownerStmt->execute([$targetId]);
-$ownerName = $ownerStmt->fetchColumn();
+$owner = $ownerStmt->fetch();
 
 $title = 'マイページ | vNet';
 require __DIR__ . '/includes/header.php';
 ?>
-<h1><?= $ownerName !== false ? h((string) $ownerName) . ' さんの投稿' : '投稿' ?></h1>
+<?php if (!empty($_SESSION['profile_flash'])):
+  $flash = $_SESSION['profile_flash'];
+  unset($_SESSION['profile_flash']); ?>
+  <div class="flash <?= h($flash['type']) ?>"><?= h($flash['msg']) ?></div>
+<?php endif; ?>
+<aside class="rightrail">
+  <section class="card profile-card">
+    <h2>プロフィール更新</h2>
+    <div class="profile-current">
+      <?= avatarTag($owner['avatar'] ?? null, (string) $owner['username'], 'avatar avatar-lg') ?>
+    </div>
+    <form method="post" action="profile_update.php" enctype="multipart/form-data">
+      <input type="hidden" name="_token" value="<?= h(csrfToken()) ?>">
+      <label>
+        ユーザーネーム
+        <input type="text" name="username" maxlength="50" value="<?= h((string) $owner['username']) ?>" required>
+      </label>
+      <label>
+        アイコン画像（JPEG / PNG・2MBまで）
+        <input type="file" name="avatar" accept="image/jpeg,image/png">
+      </label>
+      <button type="submit">更新する</button>
+    </form>
+  </section>
+</aside>
+
+<div class="page-head">
+  <h1>マイページ</h1>
+</div>
 
 <section class="card">
   <h2>新規投稿</h2>

@@ -8,7 +8,7 @@ requireLogin();
 $me = currentUser();
 
 $stmt = db()->query(
-  'SELECT p.id, p.title, p.content, p.created_at, u.username
+  'SELECT p.id, p.title, p.content, p.created_at, u.username, u.avatar
     FROM posts p
     JOIN users u ON u.id = p.user_id
     WHERE p.is_public = 1
@@ -27,8 +27,12 @@ require __DIR__ . '/includes/header.php';
   <?php foreach ($posts as $post): ?>
     <article class="card post">
       <h2><?= h($post['title']) ?></h2>
-      <p class="post-meta"><?= h($post['username']) ?> ・ <?= h($post['created_at']) ?></p>
-      <div class="post-content"><?= nl2br(h($post['content'])) ?></div>
+      <p class="post-meta">
+        <?= avatarTag($post['avatar'] ?? null, (string) $post['username'], 'avatar avatar-sm') ?>
+        <span><?= h($post['username']) ?> ・ <?= h($post['created_at']) ?></span>
+      </p>
+      <div class="post-content"><?= nl2br($post['content']) ?></div>
+      <!-- <div class="post-content"><?= nl2br(h($post['content'])) ?></div> -->
     </article>
   <?php endforeach; ?>
 <?php endif; ?>
