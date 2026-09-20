@@ -21,3 +21,4 @@
 - [SQL Injection](doc/sql-injection.md)
 - [IDOR](doc/idor.md)
 - [XSS](doc/xss.md)
+- [CSRF](doc/csrf.md)

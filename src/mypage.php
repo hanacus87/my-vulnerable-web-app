@@ -60,7 +60,8 @@ require __DIR__ . '/includes/header.php';
 <section class="card">
   <h2>新規投稿</h2>
   <form method="post" action="post_create.php">
-    <input type="hidden" name="_token" value="<?= h(csrfToken()) ?>">
+    <!-- CSRF対策 -->
+    <!-- <input type="hidden" name="_token" value="<?= h(csrfToken()) ?>"> -->
     <label>
       タイトル
       <input type="text" name="title" maxlength="200" required>

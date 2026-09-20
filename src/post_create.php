@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/includes/auth.php';
 
-verifyCsrf();
+// CSRF対策
+// verifyCsrf();
 requireLogin();
 $me = currentUser();
 
@@ -17,7 +18,6 @@ if ($postTitle === '' || $postContent === '') {
   // redirect('mypage.php');
 }
 
-// user_idは必ずセッション由来（作成側にIDORを作らない）
 $stmt = db()->prepare(
   'INSERT INTO posts (user_id, title, content, is_public) VALUES (?, ?, ?, ?)'
 );

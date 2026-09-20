@@ -31,7 +31,10 @@ require __DIR__ . '/includes/header.php';
         <?= avatarTag($post['avatar'] ?? null, (string) $post['username'], 'avatar avatar-sm') ?>
         <span><?= h($post['username']) ?> ・ <?= h($post['created_at']) ?></span>
       </p>
+      <!-- XSS可能 -->
       <div class="post-content"><?= nl2br($post['content']) ?></div>
+
+      <!-- XSS対策 -->
       <!-- <div class="post-content"><?= nl2br(h($post['content'])) ?></div> -->
     </article>
   <?php endforeach; ?>
