@@ -22,3 +22,4 @@
 - [IDOR](doc/idor.md)
 - [XSS](doc/xss.md)
 - [CSRF](doc/csrf.md)
+- [Path Traversal](doc/path-traversal.md)

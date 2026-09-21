@@ -14,7 +14,7 @@ session_start();
 /** 認証 */
 function login(string $username, string $password): bool
 {
-  // SQLi可能(文字列連結)
+  // SQLi可能
   $sql = "SELECT id, password_hash FROM users WHERE username = '{$username}'";
   $user = db()->query($sql)->fetch();
 
@@ -32,7 +32,7 @@ function login(string $username, string $password): bool
 }
 // function login(string $username, string $password): bool
 // {
-//     // SQLi対策(プレースホルダ)
+//     // SQLi対策
 //     $stmt = db()->prepare('SELECT id, password_hash FROM users WHERE username = ?');
 //     $stmt->execute([$username]);
 //     $user = $stmt->fetch();

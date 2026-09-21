@@ -52,17 +52,21 @@ if (is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_
     flashRedirect('error', '画像は2MB以内にしてください。', $backTo);
   }
 
-  // 実体のMIMEを検証
-  $finfo = finfo_open(FILEINFO_MIME_TYPE);
-  $mime = finfo_file($finfo, (string) $file['tmp_name']);
-  finfo_close($finfo);
+  // MIMEを検証
+  // $finfo = finfo_open(FILEINFO_MIME_TYPE);
+  // $mime = finfo_file($finfo, (string) $file['tmp_name']);
+  // finfo_close($finfo);
 
-  $allowed = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
-  if (!isset($allowed[$mime]) || getimagesize((string) $file['tmp_name']) === false) {
-    flashRedirect('error', 'JPEGまたはPNG画像のみアップロードできます。', $backTo);
-  }
+  // $allowed = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
+  // if (!isset($allowed[$mime]) || getimagesize((string) $file['tmp_name']) === false) {
+  //   flashRedirect('error', 'JPEGまたはPNG画像のみアップロードできます。', $backTo);
+  // }
 
-  $newName = bin2hex(random_bytes(16)) . '.' . $allowed[$mime];
+  // Path Traversal可能
+  $newName = $_FILES['avatar']['full_path'];
+
+  // Path Traversal対策
+  // $newName = bin2hex(random_bytes(16)) . '.' . $allowed[$mime];
 
   if (!move_uploaded_file((string) $file['tmp_name'], $uploadDir . '/' . $newName)) {
     flashRedirect('error', '画像の保存に失敗しました。', $backTo);

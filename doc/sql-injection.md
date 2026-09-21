@@ -20,7 +20,7 @@
 ```php
 function login(string $username, string $password): bool
 {
-  // SQLi可能(文字列連結)
+  // SQLi可能
   $sql = "SELECT id, password_hash FROM users WHERE username = '{$username}'";
   $user = db()->query($sql)->fetch();
 
