@@ -24,3 +24,7 @@
 - [CSRF](doc/csrf.md)
 - [Path Traversal](doc/path-traversal.md)
 - [Unrestricted File Upload](doc/unrestricted-file-upload.md)
+
+## REFERENCE
+
+- [Cookie](doc/cookie.md)
